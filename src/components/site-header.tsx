@@ -3,13 +3,15 @@ import { Landmark, ShieldCheck } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { getViewer } from "@/lib/data";
+import { isAdmin } from "@/lib/roles";
 
-const navItems = [
+const publicNavItems = [
   { href: "/", label: "Current" },
   { href: "/queue", label: "Queue" },
-  { href: "/verify", label: "Verify" },
-  { href: "/admin", label: "Admin" }
+  { href: "/verify", label: "Verify" }
 ];
+
+const adminNavItem = { href: "/admin", label: "Admin" };
 
 export async function SiteHeader() {
   const viewer = await getViewer();
@@ -31,7 +33,7 @@ export async function SiteHeader() {
 
         <div className="flex items-center justify-between gap-3">
           <nav aria-label="Main navigation" className="flex min-w-0 flex-wrap items-center gap-1">
-            {navItems.map((item) => (
+            {[...publicNavItems, ...(isAdmin(viewer.profile) ? [adminNavItem] : [])].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
