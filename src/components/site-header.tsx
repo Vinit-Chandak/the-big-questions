@@ -4,6 +4,7 @@ import { BrandMark } from "@/components/brand-mark";
 import { NavLinks, type NavItem } from "@/components/nav-links";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { getViewer } from "@/lib/data";
+import { isAdmin } from "@/lib/roles";
 
 function editionDate() {
   return new Intl.DateTimeFormat("en-US", {
@@ -22,7 +23,7 @@ export async function SiteHeader() {
     { href: "/queue", label: "Question queue" },
     { href: "/verify", label: "Verification" }
   ];
-  if (viewer.profile?.user_type === "admin") {
+  if (isAdmin(viewer.profile)) {
     navItems.push({ href: "/admin", label: "Admin desk" });
   }
 
