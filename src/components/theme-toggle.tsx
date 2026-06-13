@@ -1,8 +1,8 @@
 "use client";
 
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
 
 function subscribe() {
@@ -14,19 +14,26 @@ function useMounted() {
 }
 
 export function ThemeToggle() {
-  const { setTheme, theme } = useTheme();
+  const { resolvedTheme, setTheme, theme } = useTheme();
   const mounted = useMounted();
+  const currentTheme = theme === "dark" || theme === "light" ? theme : resolvedTheme === "dark" ? "dark" : "light";
+
+  useEffect(() => {
+    if (mounted && theme === "system") {
+      setTheme(currentTheme);
+    }
+  }, [currentTheme, mounted, setTheme, theme]);
 
   if (!mounted) {
     return (
       <Button aria-label="Theme loading" variant="ghost" size="icon" disabled>
-        <Monitor className="size-4" aria-hidden="true" />
+        <Sun className="size-4" aria-hidden="true" />
       </Button>
     );
   }
 
-  const nextTheme = theme === "dark" ? "light" : theme === "light" ? "system" : "dark";
-  const Icon = theme === "dark" ? Moon : theme === "light" ? Sun : Monitor;
+  const nextTheme = currentTheme === "dark" ? "light" : "dark";
+  const Icon = currentTheme === "dark" ? Moon : Sun;
 
   return (
     <Button

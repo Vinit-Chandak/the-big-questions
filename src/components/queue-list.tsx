@@ -11,8 +11,9 @@ export function QueueList({ questions }: QueueListProps) {
     return (
       <EmptyState
         badge="Queue"
-        title="No candidate questions are visible yet."
-        body="Once signed-in users submit candidate questions, they will appear here for public reading and separate civic and verified vote signals."
+        art="scales"
+        title="No candidate questions are on the docket yet."
+        body="Once signed-in participants submit candidate questions, they appear here for public reading with separate civic and verified institutional vote signals."
       />
     );
   }

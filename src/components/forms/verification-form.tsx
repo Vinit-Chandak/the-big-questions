@@ -51,7 +51,7 @@ export function VerificationForm() {
         <select
           id="requested-status"
           name="requested_status"
-          className="min-h-11 rounded-lg border border-input bg-background px-3 py-2 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+          className="min-h-11 rounded-sm border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 md:min-h-10 md:text-sm"
           defaultValue="verified_affiliation"
         >
           <option value="verified_affiliation">Verified affiliation</option>

@@ -6,12 +6,54 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { VoteBreakdown } from "@/lib/votes";
 import { formatVotePair } from "@/lib/votes";
+import { cn } from "@/lib/utils";
 
 type VoteButtonsProps = {
   endpoint: string;
   breakdown: VoteBreakdown;
   label: string;
 };
+
+function supportShare(up: number, down: number): number | null {
+  const total = up + down;
+  if (total === 0) return null;
+  return up / total;
+}
+
+function GroupSignal({
+  name,
+  up,
+  down,
+  barClass
+}: {
+  name: string;
+  up: number;
+  down: number;
+  barClass: string;
+}) {
+  const share = supportShare(up, down);
+  return (
+    <div className="flex items-center gap-2">
+      <span className="type-meta w-[4.6rem] shrink-0 text-muted-foreground">{name}</span>
+      <span
+        className="h-1.5 min-w-8 flex-1 overflow-hidden rounded-full bg-border/70"
+        role="img"
+        aria-label={
+          share === null
+            ? `No ${name.toLowerCase()} votes yet`
+            : `${name} support: ${Math.round(share * 100)} percent of ${up + down} votes`
+        }
+      >
+        {share !== null ? (
+          <span className={cn("block h-full rounded-full", barClass)} style={{ width: `${Math.round(share * 100)}%` }} />
+        ) : null}
+      </span>
+      <span className="type-meta w-14 shrink-0 text-right font-semibold tabular-nums text-foreground/85">
+        {formatVotePair(up, down)}
+      </span>
+    </div>
+  );
+}
 
 export function VoteButtons({ endpoint, breakdown, label }: VoteButtonsProps) {
   const router = useRouter();
@@ -38,9 +80,14 @@ export function VoteButtons({ endpoint, breakdown, label }: VoteButtonsProps) {
     setPending(null);
   }
 
+  const civicShare = supportShare(breakdown.civic.up, breakdown.civic.down);
+  const institutionalShare = supportShare(breakdown.institutional.up, breakdown.institutional.down);
+  const diverges =
+    civicShare !== null && institutionalShare !== null && Math.abs(civicShare - institutionalShare) >= 0.4;
+
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="w-full max-w-xs shrink-0 lg:w-64">
+      <div className="flex items-center gap-2">
         <Button
           type="button"
           variant="outline"
@@ -50,7 +97,7 @@ export function VoteButtons({ endpoint, breakdown, label }: VoteButtonsProps) {
           onClick={() => vote(1)}
         >
           <ArrowUp className="size-4" aria-hidden="true" />
-          <span>{breakdown.total.up}</span>
+          <span className="tabular-nums">{breakdown.total.up}</span>
         </Button>
         <Button
           type="button"
@@ -61,23 +108,35 @@ export function VoteButtons({ endpoint, breakdown, label }: VoteButtonsProps) {
           onClick={() => vote(-1)}
         >
           <ArrowDown className="size-4" aria-hidden="true" />
-          <span>{breakdown.total.down}</span>
+          <span className="tabular-nums">{breakdown.total.down}</span>
         </Button>
-        <span className="text-xs font-bold text-muted-foreground">Score {breakdown.total.score}</span>
+        <span className="type-meta font-semibold tabular-nums text-muted-foreground">
+          Net {breakdown.total.score > 0 ? `+${breakdown.total.score}` : breakdown.total.score}
+        </span>
       </div>
-      <dl className="grid gap-1 text-xs text-muted-foreground sm:grid-cols-2">
-        <div className="flex items-center justify-between gap-2">
-          <dt>Civic</dt>
-          <dd className="font-bold">{formatVotePair(breakdown.civic.up, breakdown.civic.down)}</dd>
-        </div>
-        <div className="flex items-center justify-between gap-2">
-          <dt>Verified</dt>
-          <dd className="font-bold">
-            {formatVotePair(breakdown.institutional.up, breakdown.institutional.down)}
-          </dd>
-        </div>
-      </dl>
-      {message ? <p className="text-xs font-bold text-destructive">{message}</p> : null}
+
+      <div className="mt-3 grid gap-1.5">
+        <GroupSignal name="Civic" up={breakdown.civic.up} down={breakdown.civic.down} barClass="bg-civic" />
+        <GroupSignal
+          name="Verified"
+          up={breakdown.institutional.up}
+          down={breakdown.institutional.down}
+          barClass="bg-institutional"
+        />
+      </div>
+
+      {diverges ? (
+        <p className="type-meta mt-2 flex items-center gap-1.5 text-muted-foreground">
+          <span aria-hidden="true" className="size-1.5 shrink-0 rotate-45 bg-gold" />
+          Civic and institutional readings diverge.
+        </p>
+      ) : null}
+
+      {message ? (
+        <p className="type-meta mt-2 font-semibold text-destructive" role="alert">
+          {message}
+        </p>
+      ) : null}
     </div>
   );
 }

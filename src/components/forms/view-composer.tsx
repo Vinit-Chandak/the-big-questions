@@ -60,9 +60,16 @@ export function ViewComposer({ questionId, canSubmitOfficial }: ViewComposerProp
     <form className="grid gap-4" onSubmit={onSubmit}>
       <div className="grid gap-2">
         <Label htmlFor="view-body">Your view</Label>
-        <Textarea id="view-body" name="body" required minLength={20} maxLength={8000} />
+        <Textarea
+          id="view-body"
+          name="body"
+          required
+          minLength={20}
+          maxLength={8000}
+          placeholder="Write it in your own words — no prompts, no template."
+        />
       </div>
-      <div className="grid gap-2 md:grid-cols-[minmax(0,1fr)_14rem]">
+      <div className="grid gap-3">
         <div className="grid gap-2">
           <Label htmlFor="view-sources">Source links</Label>
           <Textarea
@@ -77,7 +84,7 @@ export function ViewComposer({ questionId, canSubmitOfficial }: ViewComposerProp
           <select
             id="view-position"
             name="position"
-            className="min-h-11 rounded-lg border border-input bg-background px-3 py-2 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+            className="min-h-11 rounded-sm border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 md:min-h-10 md:text-sm"
             defaultValue={canSubmitOfficial ? "personal_view" : "unspecified"}
           >
             <option value="unspecified">View</option>

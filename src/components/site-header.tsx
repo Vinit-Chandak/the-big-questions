@@ -1,65 +1,94 @@
 import Link from "next/link";
-import { Landmark, ShieldCheck } from "lucide-react";
+import { LogIn, UserRound } from "lucide-react";
+import { BrandMark } from "@/components/brand-mark";
+import { NavLinks, type NavItem } from "@/components/nav-links";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Button } from "@/components/ui/button";
 import { getViewer } from "@/lib/data";
 
-const navItems = [
-  { href: "/", label: "Current" },
-  { href: "/queue", label: "Queue" },
-  { href: "/verify", label: "Verify" },
-  { href: "/admin", label: "Admin" }
-];
+function editionDate() {
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  }).format(new Date());
+}
 
 export async function SiteHeader() {
   const viewer = await getViewer();
 
+  const navItems: NavItem[] = [
+    { href: "/", label: "This week" },
+    { href: "/queue", label: "Question queue" },
+    { href: "/verify", label: "Verification" }
+  ];
+  if (viewer.profile?.user_type === "admin") {
+    navItems.push({ href: "/admin", label: "Admin desk" });
+  }
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/94 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-3 sm:px-5 md:flex-row md:items-center md:justify-between lg:px-8">
-        <div className="flex items-center justify-between gap-3">
-          <Link href="/" className="flex min-w-0 items-center gap-2 font-bold">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-card">
-              <Landmark className="size-4 text-primary" aria-hidden="true" />
-            </span>
-            <span className="truncate text-base sm:text-lg">The Big Questions</span>
-          </Link>
-          <div className="md:hidden">
-            <ThemeToggle />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between gap-3">
-          <nav aria-label="Main navigation" className="flex min-w-0 flex-wrap items-center gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-lg px-2.5 py-2 text-sm font-bold text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring sm:px-3"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="hidden md:block">
-            <ThemeToggle />
-          </div>
-
-          {viewer.profile ? (
-            <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
-              <Link href="/onboarding">
-                <ShieldCheck className="size-4" aria-hidden="true" />
-                <span className="max-w-36 truncate">{viewer.profile.display_name}</span>
-              </Link>
-            </Button>
-          ) : (
-            <Button asChild size="sm" className="hidden sm:inline-flex">
-              <Link href="/login">Sign in</Link>
-            </Button>
-          )}
+    <>
+      {/* Edition strip */}
+      <div className="border-b border-border">
+        <div className="mx-auto flex w-full max-w-[76rem] items-center justify-between gap-3 px-4 py-1.5 sm:px-6 lg:px-10">
+          <p className="type-meta truncate text-muted-foreground">A weekly civic hearing on artificial intelligence</p>
+          <p className="type-meta shrink-0 text-muted-foreground" suppressHydrationWarning>
+            {editionDate()}
+          </p>
         </div>
       </div>
-    </header>
+
+      {/* Masthead */}
+      <header className="border-b border-border">
+        <div className="mx-auto flex w-full max-w-[76rem] items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-6 lg:px-10">
+          <Link
+            href="/"
+            className="flex min-w-0 items-center gap-2.5 outline-none focus-visible:ring-2 focus-visible:ring-ring sm:gap-4"
+          >
+            <BrandMark className="size-9 text-ink sm:size-12" />
+            <span className="min-w-0">
+              <span className="block truncate font-serif text-[1.28rem] font-semibold leading-none tracking-tight min-[26rem]:text-[1.55rem] sm:text-3xl">
+                The Big Questions
+              </span>
+              <span className="type-meta mt-1.5 hidden text-muted-foreground sm:block">
+                Citizens and institutions, on the record
+              </span>
+            </span>
+          </Link>
+
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <ThemeToggle />
+            {viewer.profile ? (
+              <Link
+                href="/onboarding"
+                className="inline-flex h-10 max-w-40 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm font-semibold outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <UserRound className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                <span className="hidden truncate sm:inline">{viewer.profile.display_name}</span>
+                <span className="sr-only sm:hidden">Your profile</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex h-10 items-center gap-2 rounded-md border border-ink bg-ink px-3.5 text-sm font-semibold text-background outline-none hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <LogIn className="size-4" aria-hidden="true" />
+                <span>Sign in</span>
+              </Link>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* Sticky section nav */}
+      <nav
+        aria-label="Main navigation"
+        className="rule-masthead sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur"
+      >
+        <div className="mx-auto w-full max-w-[76rem] px-4 sm:px-6 lg:px-10">
+          <NavLinks items={navItems} />
+        </div>
+      </nav>
+    </>
   );
 }

@@ -44,12 +44,13 @@ export function FlagViewForm({ viewId }: FlagViewFormProps) {
   }
 
   return (
-    <details className="rounded-lg border border-border bg-muted/30 p-3">
-      <summary className="flex cursor-pointer items-center gap-2 text-sm font-bold">
+    <details className="group">
+      <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
         <Flag className="size-4" aria-hidden="true" />
         Flag for moderation
+        <span aria-hidden="true" className="transition-transform group-open:rotate-90">›</span>
       </summary>
-      <form className="mt-3 grid gap-3" onSubmit={onSubmit}>
+      <form className="mt-3 grid gap-3 rounded-md border border-border bg-muted/40 p-3 sm:p-4" onSubmit={onSubmit}>
         <div className="grid gap-2">
           <Label htmlFor={`flag-${viewId}`}>Reason</Label>
           <Textarea id={`flag-${viewId}`} name="reason" required minLength={4} maxLength={1000} className="min-h-24" />

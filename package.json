@@ -11,8 +11,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@fontsource/ia-writer-quattro": "latest",
     "@fontsource/ibm-plex-sans": "latest",
+    "@fontsource/newsreader": "^5.2.10",
     "@radix-ui/react-slot": "latest",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",

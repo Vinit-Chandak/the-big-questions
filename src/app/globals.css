@@ -2,9 +2,21 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+  The Big Questions — civic broadsheet design system.
+
+  Two voices everywhere:
+  - Serif (Newsreader) for what is said: questions, headlines, testimony pull text.
+  - Sans (IBM Plex Sans) for the apparatus: labels, meta, buttons, forms, signals.
+
+  Two signal hues everywhere:
+  - civic (ink teal) and institutional (rust) — never collapsed into one score color.
+*/
+
 @theme inline {
-  --font-sans: var(--font-civic);
-  --font-mono: var(--font-civic);
+  --font-sans: var(--font-sans-stack);
+  --font-serif: var(--font-serif-stack);
+  --font-mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Menlo, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -24,55 +36,77 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
+  --color-civic: var(--civic);
+  --color-institutional: var(--institutional);
+  --color-gold: var(--gold);
+  --color-ink: var(--rule-strong);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
 }
 
 :root {
-  --font-civic: "iA Writer Quattro", "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --radius: 0.5rem;
-  --background: oklch(0.985 0.008 92);
-  --foreground: oklch(0.19 0.018 74);
-  --card: oklch(0.998 0.004 92);
-  --card-foreground: oklch(0.19 0.018 74);
-  --popover: oklch(0.998 0.004 92);
-  --popover-foreground: oklch(0.19 0.018 74);
-  --primary: oklch(0.36 0.075 186);
-  --primary-foreground: oklch(0.985 0.008 92);
-  --secondary: oklch(0.91 0.027 142);
-  --secondary-foreground: oklch(0.25 0.034 148);
-  --muted: oklch(0.94 0.012 88);
-  --muted-foreground: oklch(0.47 0.021 74);
-  --accent: oklch(0.9 0.08 83);
-  --accent-foreground: oklch(0.28 0.035 74);
-  --destructive: oklch(0.55 0.18 29);
-  --destructive-foreground: oklch(0.985 0.008 92);
-  --border: oklch(0.86 0.015 86);
-  --input: oklch(0.86 0.015 86);
-  --ring: oklch(0.47 0.091 186);
+  --font-serif-stack: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-sans-stack: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --radius: 0.3rem;
+
+  /* Warm paper and ink */
+  --background: oklch(0.976 0.0085 88);
+  --foreground: oklch(0.235 0.02 55);
+  --card: oklch(0.988 0.006 92);
+  --card-foreground: oklch(0.235 0.02 55);
+  --popover: oklch(0.988 0.006 92);
+  --popover-foreground: oklch(0.235 0.02 55);
+  --primary: oklch(0.35 0.055 205);
+  --primary-foreground: oklch(0.978 0.008 88);
+  --secondary: oklch(0.93 0.018 95);
+  --secondary-foreground: oklch(0.32 0.028 60);
+  --muted: oklch(0.943 0.012 90);
+  --muted-foreground: oklch(0.46 0.02 60);
+  --accent: oklch(0.875 0.07 88);
+  --accent-foreground: oklch(0.33 0.05 70);
+  --destructive: oklch(0.5 0.155 28);
+  --destructive-foreground: oklch(0.978 0.008 88);
+  --border: oklch(0.875 0.014 82);
+  --input: oklch(0.86 0.016 82);
+  --ring: oklch(0.45 0.07 205);
+
+  /* Signals */
+  --civic: oklch(0.45 0.075 205);
+  --institutional: oklch(0.49 0.1 50);
+  --gold: oklch(0.6 0.1 80);
+  --rule-strong: oklch(0.31 0.022 58);
+
+  --grain-opacity: 1;
 }
 
 .dark {
-  --background: oklch(0.17 0.018 76);
-  --foreground: oklch(0.94 0.011 92);
-  --card: oklch(0.21 0.018 77);
-  --card-foreground: oklch(0.94 0.011 92);
-  --popover: oklch(0.21 0.018 77);
-  --popover-foreground: oklch(0.94 0.011 92);
-  --primary: oklch(0.72 0.086 184);
-  --primary-foreground: oklch(0.16 0.018 76);
-  --secondary: oklch(0.3 0.039 146);
-  --secondary-foreground: oklch(0.91 0.03 142);
-  --muted: oklch(0.26 0.016 78);
-  --muted-foreground: oklch(0.72 0.016 89);
-  --accent: oklch(0.64 0.105 82);
-  --accent-foreground: oklch(0.16 0.018 76);
-  --destructive: oklch(0.67 0.16 28);
-  --destructive-foreground: oklch(0.16 0.018 76);
-  --border: oklch(0.34 0.017 80);
-  --input: oklch(0.34 0.017 80);
-  --ring: oklch(0.72 0.086 184);
+  --background: oklch(0.168 0.011 67);
+  --foreground: oklch(0.928 0.012 86);
+  --card: oklch(0.204 0.013 70);
+  --card-foreground: oklch(0.928 0.012 86);
+  --popover: oklch(0.204 0.013 70);
+  --popover-foreground: oklch(0.928 0.012 86);
+  --primary: oklch(0.795 0.068 195);
+  --primary-foreground: oklch(0.165 0.011 67);
+  --secondary: oklch(0.262 0.015 74);
+  --secondary-foreground: oklch(0.9 0.015 88);
+  --muted: oklch(0.242 0.013 72);
+  --muted-foreground: oklch(0.71 0.015 85);
+  --accent: oklch(0.4 0.055 80);
+  --accent-foreground: oklch(0.93 0.02 88);
+  --destructive: oklch(0.66 0.145 28);
+  --destructive-foreground: oklch(0.16 0.011 67);
+  --border: oklch(0.315 0.014 73);
+  --input: oklch(0.34 0.015 73);
+  --ring: oklch(0.795 0.068 195);
+
+  --civic: oklch(0.74 0.075 200);
+  --institutional: oklch(0.73 0.095 55);
+  --gold: oklch(0.76 0.09 85);
+  --rule-strong: oklch(0.86 0.012 86);
+
+  --grain-opacity: 0.6;
 }
 
 *,
@@ -84,9 +118,20 @@
   outline-color: color-mix(in oklch, var(--ring), transparent 40%);
 }
 
+/*
+  Base type scale steps with the viewport so every rem-sized component,
+  margin, and box breathes with screen size. No vw font scaling at the root.
+*/
 html {
   font-size: 15px;
   text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 40rem) {
+  html {
+    font-size: 15.5px;
+  }
 }
 
 @media (min-width: 48rem) {
@@ -95,9 +140,15 @@ html {
   }
 }
 
-@media (min-width: 96rem) {
+@media (min-width: 90rem) {
   html {
     font-size: 17px;
+  }
+}
+
+@media (min-width: 120rem) {
+  html {
+    font-size: 18px;
   }
 }
 
@@ -106,11 +157,27 @@ body {
   overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-civic);
+  font-family: var(--font-sans-stack);
   letter-spacing: 0;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Paper grain — barely there, but the page stops feeling like a screen. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.028'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: color-mix(in oklch, var(--gold), transparent 55%);
 }
 
 button,
@@ -125,12 +192,18 @@ button,
 a,
 input,
 textarea,
-select {
-  transition-property: color, background-color, border-color, box-shadow, opacity;
-  transition-duration: 150ms;
+select,
+summary {
+  transition-property: color, background-color, border-color, box-shadow, opacity, text-decoration-color, transform;
+  transition-duration: 160ms;
+  transition-timing-function: ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
@@ -140,6 +213,87 @@ select {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* ---- Typography roles ----------------------------------------------- */
+/* Display roles use clamp() with rem floors and ceilings so headlines flow
+   with the viewport but never escape readable bounds. */
+
+.type-display {
+  font-family: var(--font-serif-stack);
+  font-weight: 500;
+  font-size: clamp(2.05rem, 1.4rem + 2.7vw, 3.9rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.type-headline {
+  font-family: var(--font-serif-stack);
+  font-weight: 600;
+  font-size: clamp(1.45rem, 1.2rem + 1vw, 2.05rem);
+  line-height: 1.16;
+  letter-spacing: 0;
+}
+
+.type-title {
+  font-family: var(--font-serif-stack);
+  font-weight: 600;
+  font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.38rem);
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.type-serif-body {
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  font-size: clamp(1rem, 0.96rem + 0.15vw, 1.09rem);
+  line-height: 1.65;
+}
+
+.type-kicker {
+  font-family: var(--font-sans-stack);
+  font-weight: 600;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.type-meta {
+  font-family: var(--font-sans-stack);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+/* ---- Broadsheet rules ------------------------------------------------ */
+
+.rule-double {
+  border-top: 4px double var(--rule-strong);
+}
+
+.rule-ink {
+  border-top: 2px solid var(--rule-strong);
+}
+
+.rule-hairline {
+  border-top: 1px solid var(--border);
+}
+
+/* Thick-over-thin masthead rule */
+.rule-masthead {
+  border-top: 3px solid var(--rule-strong);
+  position: relative;
+}
+
+.rule-masthead::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--rule-strong);
+}
+
+/* ---- Prose helpers --------------------------------------------------- */
 
 .text-balance {
   text-wrap: balance;
@@ -163,4 +317,13 @@ select {
   .text-pretty {
     text-wrap: wrap;
   }
+}
+
+/* Engraved-image slot: monochrome art adapts to dark paper. */
+.engraving {
+  user-select: none;
+}
+
+.dark .engraving {
+  filter: invert(0.88) sepia(0.08) saturate(0.9);
 }

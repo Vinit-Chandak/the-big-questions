@@ -64,7 +64,7 @@ export function AdminQuestionForm() {
           <select
             id="admin-question-origin"
             name="origin"
-            className="min-h-11 rounded-lg border border-input bg-background px-3 py-2 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+            className="min-h-11 rounded-sm border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 md:min-h-10 md:text-sm"
             defaultValue="admin_created"
           >
             <option value="admin_created">Admin created</option>
@@ -76,7 +76,7 @@ export function AdminQuestionForm() {
           <select
             id="admin-question-status"
             name="status"
-            className="min-h-11 rounded-lg border border-input bg-background px-3 py-2 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+            className="min-h-11 rounded-sm border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 md:min-h-10 md:text-sm"
             defaultValue="shortlisted"
           >
             <option value="submitted">Submitted</option>
@@ -141,7 +141,7 @@ export function PublishQuestionForm({ questions }: { questions: Question[] }) {
           id="publish-question"
           name="question_id"
           required
-          className="min-h-11 rounded-lg border border-input bg-background px-3 py-2 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+          className="min-h-11 rounded-sm border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 md:min-h-10 md:text-sm"
         >
           <option value="">Select a shortlisted question</option>
           {questions.map((question) => (
@@ -290,7 +290,7 @@ export function VerificationReviewForm() {
           <select
             id="approved-status"
             name="approved_status"
-            className="min-h-11 rounded-lg border border-input bg-background px-3 py-2 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+            className="min-h-11 rounded-sm border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 md:min-h-10 md:text-sm"
             defaultValue="verified_affiliation"
           >
             <option value="verified_affiliation">Verified affiliation</option>
@@ -303,7 +303,7 @@ export function VerificationReviewForm() {
           <select
             id="review-user-type"
             name="user_type"
-            className="min-h-11 rounded-lg border border-input bg-background px-3 py-2 text-base outline-none focus-visible:ring-2 focus-visible:ring-ring md:text-sm"
+            className="min-h-11 rounded-sm border border-input bg-background px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 md:min-h-10 md:text-sm"
             defaultValue="lab"
           >
             <option value="lab">Lab</option>

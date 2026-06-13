@@ -15,7 +15,7 @@ export function FormStatus({ message, tone = "neutral" }: FormStatusProps) {
   return (
     <p
       className={cn(
-        "text-sm font-bold leading-relaxed",
+        "text-sm font-semibold leading-relaxed",
         tone === "success" && "text-primary",
         tone === "error" && "text-destructive",
         tone === "neutral" && "text-muted-foreground"

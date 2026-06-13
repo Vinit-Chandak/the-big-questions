@@ -1,5 +1,6 @@
+import { BrandMark } from "@/components/brand-mark";
 import { LoginForm } from "@/components/forms/login-form";
-import { Badge } from "@/components/ui/badge";
+import { Kicker } from "@/components/kicker";
 import { Container, Panel, SectionShell } from "@/components/ui/panel";
 import { safeRedirectPath } from "@/lib/redirects";
 
@@ -13,12 +14,13 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <SectionShell>
-      <Container className="grid min-h-[calc(100dvh-8rem)] place-items-center">
-        <Panel className="w-full max-w-lg">
+      <Container className="grid min-h-[calc(100dvh-16rem)] place-items-center">
+        <Panel className="w-full max-w-lg p-6 sm:p-8">
           <div className="mb-6 space-y-3">
-            <Badge variant="secondary">Magic link</Badge>
-            <h1 className="text-3xl font-bold text-balance">Sign in to participate.</h1>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <BrandMark className="size-10 text-ink" />
+            <Kicker>Magic link</Kicker>
+            <h1 className="type-headline text-balance">Sign in to go on the record.</h1>
+            <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
               Public reading does not require an account. Submitting, voting, follow-ups, verification, and admin work
               require sign-in.
             </p>

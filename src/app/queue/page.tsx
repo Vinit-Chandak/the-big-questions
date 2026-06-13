@@ -1,6 +1,6 @@
 import { CandidateQuestionForm } from "@/components/forms/candidate-question-form";
+import { Kicker } from "@/components/kicker";
 import { QueueList } from "@/components/queue-list";
-import { Badge } from "@/components/ui/badge";
 import { Container, Panel, SectionShell } from "@/components/ui/panel";
 import { getCandidateQuestions } from "@/lib/data";
 
@@ -9,18 +9,23 @@ export default async function QueuePage() {
 
   return (
     <SectionShell>
-      <Container className="grid gap-6">
-        <div className="max-w-3xl space-y-3">
-          <Badge variant="secondary">Candidate queue</Badge>
-          <h1 className="text-3xl font-bold text-balance md:text-4xl">Submitted questions with separate vote signals.</h1>
-          <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-            Candidate questions are public inputs for editorial selection. Upvotes and downvotes are stored as separate
-            civic and verified institutional signals.
+      <Container className="grid gap-8">
+        <div className="rule-double max-w-3xl space-y-3 pt-6">
+          <Kicker>Question queue</Kicker>
+          <h1 className="type-display text-balance">What should be asked next?</h1>
+          <p className="text-sm leading-relaxed text-muted-foreground text-pretty md:text-base">
+            Candidate questions are public inputs for editorial selection. Upvotes and downvotes are stored as
+            separate civic and verified institutional signals — and the weekly question is never chosen by votes
+            alone.
           </p>
         </div>
-        <div className="grid gap-5 xl:grid-cols-[minmax(20rem,0.55fr)_minmax(0,1.45fr)]">
-          <Panel className="grid gap-4 xl:sticky xl:top-28 xl:self-start">
-            <h2 className="text-xl font-bold">Submit candidate question</h2>
+
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,21rem)_minmax(0,1fr)]">
+          <Panel className="grid content-start gap-4 xl:sticky xl:top-16 xl:self-start">
+            <div className="grid gap-2">
+              <Kicker>Propose</Kicker>
+              <h2 className="type-title">Submit a candidate question</h2>
+            </div>
             <CandidateQuestionForm />
           </Panel>
           <QueueList questions={questions} />
